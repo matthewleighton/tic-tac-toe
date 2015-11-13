@@ -79,7 +79,7 @@ def introduction
 
 	def play_again?
 		@winner = nil
-		@game_draw = false
+		@game_draw = nil
 		puts " \nWould you like to play again?[Y/N]"
 		new_game = gets.chomp
 		if new_game[0].upcase == "Y"
