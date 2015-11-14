@@ -1,13 +1,15 @@
 class Tictactoe
 
+	attr_reader :player1_win_count, :player2_win_count, :draw_count
+	attr_accessor :board
+
+	WINNING_BOARDS = [ [1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [7,5,3] ]
+
 	def initialize
-		introduction
-		reset_board
-		@winning_boards = [ [1,2,3], [4,5,6], [7,8,9], [1,4,7],
-												[2,5,8], [3,6,9], [1,5,9], [7,5,3] ]
 		@player1_win_count = 0
 		@player2_win_count = 0
 		@draw_count = 0
+		reset_board
 	end
 
 #-----------Setup--------------
@@ -75,6 +77,12 @@ def introduction
 		@num_players
 	end
 
+	def start_game
+		introduction
+		reset_board
+		play
+	end
+
 #-----------Between games----------------
 
 	def play_again?
@@ -109,7 +117,7 @@ def introduction
 #---------Win/draw checks-------------
 
 	def check_winner
-		@winning_boards.each do |win_board|
+		WINNING_BOARDS.each do |win_board|
 			if @board[win_board[0]] != " " && @board[win_board[0]] == @board[win_board[1]] && @board[win_board[1]] == @board[win_board[2]]
 				if @board[win_board[0]] == "x"
 					@winner = @player1
@@ -206,7 +214,7 @@ def introduction
 	end
 
 	def ai_possible_win
-		@winning_boards.each do |wb|
+		WINNING_BOARDS.each do |wb|
 			currently_examining = ""
 			3.times do |x|
 				currently_examining += @board[wb[x]].to_s
@@ -221,7 +229,7 @@ def introduction
 	end
 
 	def ai_possible_player_win
-		@winning_boards.each do |wb|
+		WINNING_BOARDS.each do |wb|
 			currently_examining = ""
 			3.times do |x|
 				currently_examining += @board[wb[x]].to_s
@@ -251,4 +259,4 @@ def introduction
 end
 
 game = Tictactoe.new
-game.play
+game.start_game
